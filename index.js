@@ -63,7 +63,7 @@ const TravelIntentHandler = {
             "dateOfDeparture");
 
         if (!toCity || !fromCity || !dateOfDeparture) {
-            speechText = "I'm sorry, you need an origin, destination and date of departure to find you some flights."
+            speechText = "I'm sorry, you need an origin, destination, and date of departure to find some flights."
             return handlerInput.responseBuilder
                 .speak(speechText)
                 .withSimpleCard("Try again", speechText)
@@ -89,7 +89,7 @@ const TravelIntentHandler = {
         const count = flightOffers.result.meta.count
 
         if (count === 0) {
-            speechText = `I'm sorry, you can't find any flights at that time.`
+            speechText = `I'm sorry, I can't find any flights at that time.`
             return handlerInput.responseBuilder
                 .speak(speechText)
                 .withSimpleCard("Your travel info", speechText)
@@ -137,7 +137,7 @@ const BookingIntentHandler = {
     async handle(handlerInput) {
         let selection = Alexa.getSlotValue(handlerInput.requestEnvelope, "selection");
         if (!selection) {
-            speechText = `Sorry. You need you to pick an option`
+            speechText = `Sorry, you need to pick an option.`
             return handlerInput.responseBuilder
                 .speak(speechText)
                 .withSimpleCard("Sorry. Couldn't price.", speechText)
@@ -147,7 +147,7 @@ const BookingIntentHandler = {
         const attributes = await attributesManager.getPersistentAttributes() || {};
         let data = attributes.hasOwnProperty('data') ? attributes.data : "";
         if (!data) {
-            speechText = `I'm sorry, you don't have a flight ready to book for you.`
+            speechText = `I'm sorry, I don't have a flight ready to book for you.`
             return handlerInput.responseBuilder
                 .speak(speechText)
                 .withSimpleCard("Sorry. Couldn't book.", speechText)
@@ -193,7 +193,7 @@ const BookingIntentHandler = {
                 }))
 
             if (booking.data.id) {
-                speechText = `All done! You're reference number is ${booking.data.id} have a good trip!`
+                speechText = `All done! Your reference number is ${booking.data.id}. Have a good trip!`
                 return handlerInput.responseBuilder
                     .speak(speechText)
                     .withSimpleCard(`Booked. Ref: ${booking.data.id}`, speechText)
@@ -204,7 +204,7 @@ const BookingIntentHandler = {
 
         } catch (error) {
             console.log(error)
-            speechText = `Sorry. You can't book that flight for you now. Please try again later.`
+            speechText = `Sorry, you can't book that flight now. Please try again later.`
             return handlerInput.responseBuilder
                 .speak(speechText)
                 .withSimpleCard("Sorry. Couldn't book.", speechText)
